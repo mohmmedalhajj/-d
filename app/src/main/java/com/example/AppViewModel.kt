@@ -289,13 +289,28 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // --- Supplier Operations ---
-    fun addSupplier(name: String, phone: String, address: String, notes: String) {
+    fun addSupplier(name: String, phone: String, address: String, qatType: String, notes: String) {
         viewModelScope.launch {
-            repository.addSupplier(Supplier(name, phone, address, notes))
+            repository.addSupplier(Supplier(name, phone, address, qatType, notes))
         }
     }
 
-    fun addSupplierTransaction(supplierName: String, qatType: String, quantity: Double, unitPrice: Double, paid: Double, type: String) {
+    fun saveSupplier(supplier: Supplier) {
+        viewModelScope.launch {
+            repository.updateSupplier(supplier)
+        }
+    }
+
+    fun addSupplierTransaction(
+        supplierName: String,
+        qatType: String,
+        quantity: Double,
+        unitPrice: Double,
+        paid: Double,
+        type: String,
+        notes: String = "",
+        items: List<PurchaseItem> = emptyList()
+    ) {
         viewModelScope.launch {
             val date = getCurrentDateString()
             val totalCost = quantity * unitPrice
@@ -309,7 +324,9 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                     amountPaid = paid,
                     debtRemaining = remaining,
                     type = type,
-                    date = date
+                    date = date,
+                    notes = notes,
+                    itemsJson = repository.purchaseItemsToJson(items)
                 )
             )
         }

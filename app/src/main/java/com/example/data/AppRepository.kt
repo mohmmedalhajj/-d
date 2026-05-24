@@ -1,6 +1,8 @@
 package com.example.data
 
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers
@@ -65,6 +67,21 @@ class AppRepository(
     suspend fun saveDailyFinanceMeta(meta: DailyFinanceMeta) = appDao.insertDailyFinanceMeta(meta)
     suspend fun getDailyFinanceMetaDirect(date: String): DailyFinanceMeta? = appDao.getDailyFinanceMetaDirect(date)
     fun getDailyFinanceMetaFlow(date: String): Flow<DailyFinanceMeta?> = appDao.getDailyFinanceMetaFlow(date)
+
+    private val gson = Gson()
+
+    fun purchaseItemsToJson(items: List<PurchaseItem>): String {
+        return gson.toJson(items)
+    }
+
+    fun jsonToPurchaseItems(json: String): List<PurchaseItem> {
+        return try {
+            val type = object : TypeToken<List<PurchaseItem>>() {}.type
+            gson.fromJson<List<PurchaseItem>>(json, type) ?: emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
 
     // --- Seed Data ---
     suspend fun seedDefaultDataIfNeeded() {
@@ -155,6 +172,7 @@ class AppRepository(
 
     // --- Suppliers ---
     suspend fun addSupplier(supplier: Supplier) = appDao.insertSupplier(supplier)
+    suspend fun updateSupplier(supplier: Supplier) = appDao.insertSupplier(supplier)
     suspend fun deleteSupplier(supplier: Supplier) = appDao.deleteSupplier(supplier)
     suspend fun addSupplierTransaction(tx: SupplierTransaction) {
         withContext(Dispatchers.IO) {

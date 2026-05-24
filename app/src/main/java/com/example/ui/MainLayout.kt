@@ -329,7 +329,7 @@ fun MainLayout(viewModel: AppViewModel = viewModel()) {
                         2 -> SalesScreen(viewModel, salesList, inventoryList)
                         3 -> AccountsScreen(viewModel, inventoryList, salesList, expensesList, settingsState)
                         4 -> DebtsScreen(viewModel, customersList, debtTxList, settingsState)
-                        5 -> SuppliersScreen(viewModel, suppliersList, supplierTxList, settingsState)
+                        5 -> SuppliersScreenEnhanced(viewModel, suppliersList, supplierTxList, settingsState)
                         6 -> ExpensesScreen(viewModel, expensesList)
                         7 -> TransfersScreen(viewModel, transfersList)
                         8 -> ReportsScreen(viewModel, inventoryList, salesList, expensesList, debtTxList, suppliersList, transfersList, settingsState)
