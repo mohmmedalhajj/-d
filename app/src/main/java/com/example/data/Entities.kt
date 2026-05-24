@@ -49,6 +49,7 @@ data class Supplier(
     @PrimaryKey val name: String,
     val phone: String = "",
     val address: String = "",
+    val qatType: String = "",
     val notes: String = ""
 )
 
