@@ -1,0 +1,6 @@
+{
+  "name": "وكالة طوفان الأقصى لأجود أنواع القات الصعدي",
+  "description": "تطبيق إدارة المخزون، المبيعات، الحسابات، الديون، الموردين، والتحويلات المالية لوكالة طوفان الأقصى للقات الصعدي - أحمد منصور",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
